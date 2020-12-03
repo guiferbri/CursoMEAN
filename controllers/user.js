@@ -2,6 +2,8 @@
 var bcrypt = require('bcrypt-nodejs');
 var User = require('../models/user');
 var jwt = require('../services/jwt');
+var fs = require('fs'); //file system
+var path = require('path');//rutas concretas
 
 //req lo que recibe, res lo que devuelve
 function prueba(req, res) {
@@ -75,8 +77,72 @@ function loginUser(req, res) {
 
 }
 
+function updateUser(req, res) {
+	var userId = req.params.id; //parametro de la url
+	var update = req.body;
+
+	User.findByIdAndUpdate(userId, update, (err, userUpdated) => {
+		if (err) {
+			res.status(500).send({message : 'Error al actualizar el usuario'});
+		} else {
+			if (!userUpdated) {
+				res.status(404).send({message : 'No se ha podido actualizar el usuario'});
+			} else {
+				res.status(200).send({user : userUpdated});
+			}
+		}
+	});
+}
+
+function uploadImage(req, res) {
+	var userId = req.params.id;
+	var fileName = 'No subido';
+	if (req.files) {
+		var filePath = req.files.image.path;
+		var fileSplit = filePath.split('/');
+		var fileName = fileSplit[2];
+
+		var extSplit = fileName.split('.');
+		var fileExt = extSplit[1];
+
+		if (fileExt == 'png' || fileExt == 'jpg' || fileExt == 'jpeg' || fileExt == 'gif') {
+			User.findByIdAndUpdate(userId, {image : fileName}, (err, userUpdated) => {
+				if (err) {
+					res.status(500).send({message : 'Error al añadir la imagen al usuario'});
+				} else {
+					if (!userUpdated) {
+						res.status(404).send({message : 'No se ha podido añadir la imagen al usuario'});
+					} else {
+						res.status(200).send({user : userUpdated});
+					}
+				}
+			});
+		} else {
+			res.status(200).send({message : 'Extensión del archivo no válida'});
+		}
+	} else {
+		res.status(404).send({message : 'No ha subido ninguna imagen'});
+	}
+}
+
+function getImageFile(req, res) {
+	var imageFile = req.params.imageFile;
+	//comprobar si exsiste el fichero
+	var pathFile = './uploads/users/' + imageFile;
+	fs.exists(pathFile, function(exists){
+		if (exists) {
+			res.sendFile(path.resolve(pathFile));
+		} else {
+			res.status(404).send({message : 'No existe la imagen'});
+		}
+	});
+}
+
 module.exports = {
 	prueba,
 	saveUser,
-	loginUser
+	loginUser,
+	updateUser,
+	uploadImage,
+	getImageFile
 };
