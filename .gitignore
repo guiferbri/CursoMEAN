@@ -1,0 +1,10 @@
+#Dependencias
+node_modules/
+
+#Sublime
+*.sublime*
+
+#App
+Package-lock.json
+
+*.DS_Store
