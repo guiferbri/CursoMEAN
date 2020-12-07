@@ -113,7 +113,7 @@ function uploadImage(req, res) {
 					if (!userUpdated) {
 						res.status(404).send({message : 'No se ha podido añadir la imagen al usuario'});
 					} else {
-						res.status(200).send({user : userUpdated});
+						res.status(200).send({image : fileName, user : userUpdated}); //devolver el nombre del fichero para actualizar el avatar en los sitios donde se esta utilizando
 					}
 				}
 			});
