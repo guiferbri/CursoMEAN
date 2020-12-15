@@ -1,4 +1,4 @@
-<div class="row h-100">
+<div *ngIf="identity" class="row h-100">
 	<div *ngIf="identity" class="navigation col-1">
 		<h1 class="headTitle">
 			<a [routerLink]="['/']">
@@ -8,7 +8,7 @@
 			<a class="nav-link" href="#">
 				<span ><i class="fas fa-search fa-2x" aria-hidden="true"></i></span><span >Buscar</span>
 			</a>
-			<a class="nav-link" href="#">
+			<a class="nav-link" [routerLink]="['/artistas',1]" [routerLinkActive]="['border-bottom','border-success','border-4']">
 				<span ><i class="fas fa-star fa-2x" aria-hidden="true"></i></span><span >Artistas</span>
 			</a>
 			<a class="nav-link" href="#">
@@ -23,7 +23,7 @@
 				<span class="me-1 align-middle" id="identityName">{{ identity.name }} {{ identity.surname }}</span>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" [routerLink]="['/mis-datos']">
+				<a class="nav-link" [routerLink]="['/mis-datos']" [routerLinkActive]="['border-bottom','border-success','border-4']">
 					<span ><i class="fas fa-cog fa-2x" aria-hidden="true"></i></span><br/><span >Mis datos</span>
 				</a>
 			</li>
@@ -39,7 +39,7 @@
 		</ul>
 	</div>
 
-	<div *ngIf="identity" class="central col-11">
+	<div [class.hidden]="!identity" class="central col-11">
 		<router-outlet></router-outlet>
 	</div>
 </div>

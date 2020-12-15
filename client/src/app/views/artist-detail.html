@@ -1,0 +1,11 @@
+<div class="card bg-dark text-white" *ngIf="artist">
+  <img *ngIf="artist.image && artist.image != 'null'" src="{{ url + 'get-image-artist/' + artist.image}}" class="cardImage card-img" alt="...">
+  <div class="card-img-overlay">
+    <h5 class="card-title text-capitalize fs-1">{{ artist.name }}</h5>
+    <p class="card-text fs-3">{{ artist.description }}</p>
+  </div>
+</div>
+<button *ngIf="identity && identity.role == 'ROLE_ADMIN'" type="button" class="my-1 btn btn-outline-secondary"><span><i class="me-1 fas fa-book" aria-hidden="true"></i></span>Añadir Album</button>
+
+<div class="gallery" *ngIf="albums">
+</div>

@@ -57,7 +57,7 @@ function getArtists(req, res) {
 		page = req.params.page;
 	}
 
-	var itemsPerPage = 2;
+	var itemsPerPage = 3;
 
 	Artist.find().sort('name').paginate(page, itemsPerPage, (err, artists, total) => {
 		if (err) {

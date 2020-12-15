@@ -1,5 +1,5 @@
 html, body {
-	margin: 0px;
+	margin-left: 6px;
 	height: 100%;
 	background: #eee;
 }
@@ -57,4 +57,24 @@ html, body {
 .fa-power-off {
 	color: Tomato;
 	cursor: pointer;
+}
+
+.artistImageEdit img {
+	width: 150px;
+}
+
+/*.artistImage {
+	height: 245px;
+	overflow: hidden;
+	width: 100%;
+}
+
+.artistImage img {
+	height: 100%;
+}*/
+.cardImage {
+	width: 100%;
+    height: 32vw;
+    object-fit: cover;
+
 }

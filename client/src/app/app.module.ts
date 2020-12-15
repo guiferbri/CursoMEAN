@@ -7,6 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserEditComponent } from './components/user-edit.component';
+import { ArtistListComponent } from './components/artist-list.component';
+import { ArtistAddComponent } from './components/artist-add.component';
+import { ArtistEditComponent } from './components/artist-edit.component';
+import { ArtistDetailComponent } from './components/artist-detail.component';
+import { HomeComponent } from './components/home.component';
 
 // declarations -> Componentes y directivas
 // imports -> Modulos del framework o que hagamos nosotros
@@ -14,7 +19,7 @@ import { UserEditComponent } from './components/user-edit.component';
 // bootstrap -> Componente principal
 @NgModule({
   declarations: [
-    AppComponent, UserEditComponent
+    AppComponent, UserEditComponent, ArtistListComponent, HomeComponent, ArtistAddComponent, ArtistEditComponent, ArtistDetailComponent
   ],
   imports: [
     BrowserModule,

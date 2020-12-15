@@ -1,0 +1,41 @@
+<div class="head-page" *ngIf="identity">
+	<h1>{{ title }}</h1>
+	<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn btn-light" [routerLink]="['/crear-artista']" >Añadir artista</a>
+</div>
+<div class="d-flex justify-content-end">
+	<ul class="pagination">
+		<li class="page-item"><a class="page-link" [routerLink]="['/artistas', prePage]">&laquo;</a></li>
+		<li class="page-item"><a class="page-link" [routerLink]="['/artistas', nextPage]">&raquo;</a></li>
+	</ul>
+</div>
+<div class="artistList row" *ngIf="identity">
+	<!-- Recorre la lista artists y crea un objeto de artist y genera un li por cada uno--> 
+	<!--
+	<div *ngFor="let artist of artists" class="col artistItem">
+		<div class="artistImage col-6" *ngIf="artist.image && artist.image != 'null'">
+			<img class="img-thumbnail img-fluid" src="{{ url + 'get-image-artist/' + artist.image}}" />
+		</div>
+		<div class="artistName">
+			<a href="">{{ artist.name }}</a>
+			<div class="buttons" *ngIf="identity && identity.role == 'ROLE_ADMIN'">
+				<a class="btn me-1 btn-outline-warning" [routerLink]="['/editar-artista', artist._id]">Editar</a>
+				<a class="btn me-1 btn-outline-danger" href="">Borrar</a>
+			</div>
+		</div>
+	</div> -->
+	<div *ngFor="let artist of artists" class="col artistItem">
+		<div class="card">
+		  <img *ngIf="artist.image && artist.image != 'null'" src="{{ url + 'get-image-artist/' + artist.image}}" class="cardImage card-img-top" alt="...">
+		  <div class="card-body">
+		    <h5 class="card-title"><a [routerLink]="['/artista', artist._id]">{{ artist.name }}</a></h5>
+		    <p class="card-text">{{ artist.description }}</p>
+		    <a class="btn me-1 btn-outline-warning" [routerLink]="['/editar-artista', artist._id]">Editar</a>
+			<a class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(artist._id)">Borrar</a>
+
+			<div class="seguro mt-1" *ngIf="confirmado == artist._id">
+				<a class="btn me-1 btn-danger" (click)="onDeleteArtist(artist._id)">Eliminar</a>
+				<a class="btn me-1 btn-primary" (click)="onCancelArtist()">Cancelar</a>
+		  </div>
+		</div>
+	</div>
+</div>
