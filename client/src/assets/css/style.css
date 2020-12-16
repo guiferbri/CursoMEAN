@@ -33,7 +33,6 @@ html, body {
 	text-align: center;
 	color: white;
 	background: #1C1C1F;
-	height: 100%;
 }
 
 #user_loged {
@@ -59,7 +58,7 @@ html, body {
 	cursor: pointer;
 }
 
-.artistImageEdit img {
+.artistImageEdit img, .albumImageEdit img {
 	width: 150px;
 }
 
@@ -76,5 +75,9 @@ html, body {
 	width: 100%;
     height: 32vw;
     object-fit: cover;
+}
 
+.cardImageAlbum {
+    height: 100%;
+    object-fit: cover;
 }

@@ -7,10 +7,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserEditComponent } from './components/user-edit.component';
+//Artista
 import { ArtistListComponent } from './components/artist-list.component';
 import { ArtistAddComponent } from './components/artist-add.component';
 import { ArtistEditComponent } from './components/artist-edit.component';
 import { ArtistDetailComponent } from './components/artist-detail.component';
+//Album
+import { AlbumAddComponent } from './components/album-add.component';
+import { AlbumEditComponent } from './components/album-edit.component';
+import { AlbumDetailComponent } from './components/album-detail.component';
+//Home
 import { HomeComponent } from './components/home.component';
 
 // declarations -> Componentes y directivas
@@ -19,7 +25,8 @@ import { HomeComponent } from './components/home.component';
 // bootstrap -> Componente principal
 @NgModule({
   declarations: [
-    AppComponent, UserEditComponent, ArtistListComponent, HomeComponent, ArtistAddComponent, ArtistEditComponent, ArtistDetailComponent
+    AppComponent, UserEditComponent, ArtistListComponent, HomeComponent, ArtistAddComponent, 
+    ArtistEditComponent, ArtistDetailComponent, AlbumAddComponent, AlbumEditComponent, AlbumDetailComponent
   ],
   imports: [
     BrowserModule,

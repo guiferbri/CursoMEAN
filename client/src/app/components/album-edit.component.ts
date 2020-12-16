@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { User } from '../models/user';
-import { Artist } from '../models/artist';
+import { Album } from '../models/album';
 import { UserService } from '../services/user.service';
-import { ArtistService } from '../services/artist.service';
+import { AlbumService } from '../services/album.service';
 import { UploadService } from '../services/upload.service';
 import { GLOBAL } from '../services/global';
 
 @Component({
-  selector: 'artist-edit',
-  templateUrl: '../views/artist-add.html',
-  providers : [ UserService, ArtistService, UploadService ]
+  selector: 'album-edit',
+  templateUrl: '../views/album-add.html',
+  providers : [ UserService, AlbumService, UploadService ]
 })
 
-export class ArtistEditComponent implements OnInit {
-	public title : string;
-	public artist : Artist;
+export class AlbumEditComponent implements OnInit {
+	public titulo : string;
+	public album : Album;
 	public identity : any;
 	public token : any;
   	public errorMessage : any;
@@ -26,29 +26,29 @@ export class ArtistEditComponent implements OnInit {
 	public id : any;
 
 	public constructor(private _route : ActivatedRoute, private _router : Router, 
-		private _userService : UserService, private _artistService : ArtistService, private _uploadService : UploadService) {
-		this.title = 'Editar artista';
+		private _userService : UserService, private _albumService : AlbumService, private _uploadService : UploadService) {
+		this.titulo = 'Editar album';
 	  	this.url = GLOBAL.url;
 	  	this.identity = this._userService.getIdentity();
 	  	this.token = this._userService.getToken();
-	  	this.artist = new Artist('','','');
 	  	this.isEdit = true;
+	  	this.album = new Album('','','','','');
 	}
 	ngOnInit() {
 		this._route.params.forEach((params : Params) => {
 			let id = params['id'];
 			this.id = id;
-			this.getArtist(id);
+			this.getAlbum(id);
 		});
 	}
 
-	getArtist(id : string) {
-		this._artistService.getArtist(this.token, id).subscribe(
+	getAlbum(id : string) {
+		this._albumService.getAlbum(this.token, id).subscribe(
 			response => {
 	  			if (!response) {
 	  				this._router.navigate(['/']);
 	  			} else {
-	  				this.artist = response;
+	  				this.album = response;
 	  			}
 	  		}, error => {
 	  			var errorMessage = <any>error;
@@ -61,25 +61,25 @@ export class ArtistEditComponent implements OnInit {
 	}
 
 	public onSubmit() {
-		console.log(this.artist);
-		this._artistService.updateArtist(this.token, this.id, this.artist).subscribe(
+		console.log(this.album);
+		this._albumService.updateAlbum(this.token, this.id, this.album).subscribe(
 	  		response => {
-	  			if (!response.artist) {
+	  			if (!response.album) {
 	  				this.errorMessage = 'Error en el servidor';
 	  			} else {
-	  				this.errorMessage = 'El artista se ha actualizado correctamente';
+	  				this.errorMessage = 'El album se ha actualizado correctamente';
 	  				if (this.filesToUpload) {
   						//then porque devuelve una promesa
-  						this._uploadService.makeFileRequest(this.url + 'upload-image-artist/' + this.id, [], this.filesToUpload, this.token, 'image').then((result : any) => {
-  							//this.artist.image = result.image;
-	  						//let imagePath = this.url + 'get-image-artist/' + this.artist.image;
+  						this._uploadService.makeFileRequest(this.url + 'upload-image-album/' + this.id, [], this.filesToUpload, this.token, 'image').then((result : any) => {
+  							//this.album.image = result.image;
+	  						//let imagePath = this.url + 'get-image-album/' + this.album.image;
 	  						//document.getElementById('imageLogged')!.setAttribute('src', imagePath);
-	  						this._router.navigate(['/artista',this.id]);
+	  						this._router.navigate(['/artista', response.album.artist]);
   						}, (error) => {
   							console.log(error);
   						});
   					} else {
-  						this._router.navigate(['/artista',this.id]);
+  						this._router.navigate(['/artista', response.album.artist]);
   					}
 	  			}
 	  		}, error => {

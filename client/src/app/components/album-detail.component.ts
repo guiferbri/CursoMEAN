@@ -4,19 +4,20 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../models/user';
 import { Artist } from '../models/artist';
 import { Album } from '../models/album';
+import { Song } from '../models/song';
 import { UserService } from '../services/user.service';
-import { ArtistService } from '../services/artist.service';
 import { AlbumService } from '../services/album.service';
 import { GLOBAL } from '../services/global';
 
 @Component({
-  selector: 'artist-detail',
-  templateUrl: '../views/artist-detail.html',
-  providers : [ UserService, ArtistService, AlbumService ]
+  selector: 'album-detail',
+  templateUrl: '../views/album-detail.html',
+  providers : [ UserService, AlbumService ]
 })
 
-export class ArtistDetailComponent implements OnInit {
-	public artist : Artist;
+export class AlbumDetailComponent implements OnInit {
+	public album : Album;
+	public songs? : Song[];
 	public identity : any;
 	public token : any;
   	public errorMessage : any;
@@ -26,30 +27,31 @@ export class ArtistDetailComponent implements OnInit {
   	public confirmado? : string | null;
 
 	public constructor(private _route : ActivatedRoute, private _router : Router, 
-		private _userService : UserService, private _artistService : ArtistService, private _albumService : AlbumService) {
+		private _userService : UserService, private _albumService : AlbumService) {
 	  	this.url = GLOBAL.url;
 	  	this.identity = this._userService.getIdentity();
 	  	this.token = this._userService.getToken();
-		this.artist = new Artist('','','','');
+		this.album = new Album('','','','','');
 		this.id = '';
 	}
 	ngOnInit() {
 		this._route.params.forEach((params : Params) => {
 			let id = params['id'];
 			this.id = id;
-			this.getArtist(id);
+			this.getAlbum(id);
 		});
 	}
 
-	getArtist(id : string) {
-		this._artistService.getArtist(this.token, id).subscribe(
+	getAlbum(id : string) {
+		this._albumService.getAlbum(this.token, id).subscribe(
 			response => {
 	  			if (!response) {
 	  				this._router.navigate(['/']);
 	  			} else {
-	  				this.artist = response;
+	  				this.album = response;
 
-	  				this._albumService.getAlbums(this.token, id).subscribe(
+	  				//Sacar canciones
+	  				/*this._albumService.getAlbums(this.token, id).subscribe(
 	  					response => {
 				  			if (!response) {
 				  				this.errorMessage = 'Este artista no tiene albums';
@@ -63,7 +65,7 @@ export class ArtistDetailComponent implements OnInit {
 				  				this.errorMessage = error.error.message;
 				  			}
 				  		}
-				  	);
+				  	);*/
 	  			}
 	  		}, error => {
 	  			var errorMessage = <any>error;
@@ -75,15 +77,15 @@ export class ArtistDetailComponent implements OnInit {
 	  	);
 	}
 
-	onDeleteConfirm(id : string | undefined) {
+	/*onDeleteConfirm(id : string | undefined) {
 		this.confirmado = id;
 	}
 
-	onCancelAlbum() {
+	onCancelSong() {
 		this.confirmado = null;
 	}
 
-	onDeleteAlbum(idAlbum : string | undefined) {
+	onDeleteSong(idAlbum : string | undefined) {
 		if (idAlbum != null) {
 			var albumId = idAlbum;
 			this._albumService.deleteAlbum(this.token, albumId).subscribe(
@@ -102,5 +104,5 @@ export class ArtistDetailComponent implements OnInit {
 		  		}
 			);
 		}
-	}
+	}*/
 }
