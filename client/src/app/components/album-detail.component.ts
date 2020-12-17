@@ -7,12 +7,13 @@ import { Album } from '../models/album';
 import { Song } from '../models/song';
 import { UserService } from '../services/user.service';
 import { AlbumService } from '../services/album.service';
+import { SongService } from '../services/song.service';
 import { GLOBAL } from '../services/global';
 
 @Component({
   selector: 'album-detail',
   templateUrl: '../views/album-detail.html',
-  providers : [ UserService, AlbumService ]
+  providers : [ UserService, AlbumService, SongService ]
 })
 
 export class AlbumDetailComponent implements OnInit {
@@ -27,7 +28,7 @@ export class AlbumDetailComponent implements OnInit {
   	public confirmado? : string | null;
 
 	public constructor(private _route : ActivatedRoute, private _router : Router, 
-		private _userService : UserService, private _albumService : AlbumService) {
+		private _userService : UserService, private _albumService : AlbumService, private _songService : SongService) {
 	  	this.url = GLOBAL.url;
 	  	this.identity = this._userService.getIdentity();
 	  	this.token = this._userService.getToken();
@@ -51,12 +52,12 @@ export class AlbumDetailComponent implements OnInit {
 	  				this.album = response;
 
 	  				//Sacar canciones
-	  				/*this._albumService.getAlbums(this.token, id).subscribe(
+	  				this._songService.getSongs(this.token, id).subscribe(
 	  					response => {
 				  			if (!response) {
-				  				this.errorMessage = 'Este artista no tiene albums';
+				  				this.errorMessage = 'Este album no tiene canciones';
 				  			} else {
-				  				this.albums = response;
+				  				this.songs = response;
 				  			}
 				  		}, error => {
 				  			var errorMessage = <any>error;
@@ -65,7 +66,7 @@ export class AlbumDetailComponent implements OnInit {
 				  				this.errorMessage = error.error.message;
 				  			}
 				  		}
-				  	);*/
+				  	);
 	  			}
 	  		}, error => {
 	  			var errorMessage = <any>error;
@@ -77,7 +78,7 @@ export class AlbumDetailComponent implements OnInit {
 	  	);
 	}
 
-	/*onDeleteConfirm(id : string | undefined) {
+	onDeleteConfirm(id : string | undefined) {
 		this.confirmado = id;
 	}
 
@@ -85,15 +86,15 @@ export class AlbumDetailComponent implements OnInit {
 		this.confirmado = null;
 	}
 
-	onDeleteSong(idAlbum : string | undefined) {
-		if (idAlbum != null) {
-			var albumId = idAlbum;
-			this._albumService.deleteAlbum(this.token, albumId).subscribe(
+	onDeleteSong(idSong : string | undefined) {
+		if (idSong != null) {
+			var albumId = idSong;
+			this._songService.deleteSong(this.token, idSong).subscribe(
 				response => {
-		  			if (!response.album) {
+		  			if (!response.song) {
 		  				this.errorMessage = 'Ha ocurrido un error en el servidor';
 		  			} else {
-		  				this.getArtist(this.id);
+		  				this.getAlbum(this.id);
 		  			}
 		  		}, error => {
 		  			var errorMessage = <any>error;
@@ -104,5 +105,5 @@ export class AlbumDetailComponent implements OnInit {
 		  		}
 			);
 		}
-	}*/
+	}
 }

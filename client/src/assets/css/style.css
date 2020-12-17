@@ -62,15 +62,6 @@ html, body {
 	width: 150px;
 }
 
-/*.artistImage {
-	height: 245px;
-	overflow: hidden;
-	width: 100%;
-}
-
-.artistImage img {
-	height: 100%;
-}*/
 .cardImage {
 	width: 100%;
     height: 32vw;
@@ -80,4 +71,19 @@ html, body {
 .cardImageAlbum {
     height: 100%;
     object-fit: cover;
+}
+
+.editLinkIcon {
+	color: #e0a808;
+	cursor: pointer;
+}
+
+.deleteLinkIcon {
+	color: #b72533;
+	cursor: pointer;
+}
+
+.cancelLinkIcon {
+	color: #0d6efd;
+	cursor: pointer;
 }

@@ -2,37 +2,83 @@
 	<img *ngIf="!album.image || album.image == 'null'" src="assets/default.jpg" class="cardImage card-img" alt="...">
 	<img *ngIf="album.image && album.image != 'null'" src="{{ url + 'get-image-album/' + album.image}}" class="cardImage card-img" alt="...">
 	<div class="card-img-overlay">
+		<h3 class="card-title text-uppercase fs-1 position-absolute bottom-0 end-0 me-3">{{ album.artist.name }}</h3>
 		<h5 class="card-title text-capitalize fs-1">{{ album.title }}</h5>
-	    <p class="card-text fs-3">{{ album.description }}</p>
-	    <p class="card-text fs-3">{{ album.year }}</p>
- 	</div>
+		<p class="card-text fs-3">{{ album.description }}</p>
+		<p class="card-text fs-3">{{ album.year }}</p>
+	</div>
 </div>
-<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="my-1 btn btn-outline-secondary" [routerLink]="['/crear-song', album._id]"><span><i class="me-1 fas fa-music" aria-hidden="true"></i></span>Añadir Canción</a>
+<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="my-1 btn btn-outline-secondary" [routerLink]="['/crear-cancion', album._id]"><span><i class="me-1 fas fa-music" aria-hidden="true"></i></span>Añadir Canción</a>
 
-<div class="gallery row" *ngIf="songs">
-	<!--
-	<div *ngFor="let album of songs" class="col-4">
+<div class="gallery row mt-3" *ngIf="songs">
+	<div class="col-6">
+		<table class="table table-borderless">
+			<tbody>
+				<tr *ngFor="let song of songs" class="d-flex">
+					<th scope="row">
+						<a class="btn btn-outline-success btn-sm" href=""><span><i class="me-1 fas fa-play fa-xs" aria-hidden="true"></i></span></a>
+					</th>
+					<td>{{ song.number }}</td>
+					<td>{{ song.name }}</td>
+					<td>{{ song.duration }}</td>
+					<td>
+						<a class="editLinkIcon" [routerLink]="['/editar-cancion', song._id]">
+							<span><i class="me-1 fas fa-edit fa-xs" aria-hidden="true"></i></span>
+						</a>
+					</td>
+					<td>
+						<a class="deleteLinkIcon" (click)="onDeleteConfirm(song._id)">
+							<span><i class="me-1 fas fa-trash-alt fa-xs" aria-hidden="true"></i></span>
+						</a>
+					</td>
+					<td *ngIf="confirmado == song._id">
+						<a class="deleteLinkIcon" (click)="onDeleteSong(song._id)">
+							<span><i class="me-1 fas fa-trash fa-xs" aria-hidden="true"></i></span>
+						</a>
+					</td>
+					<td *ngIf="confirmado == song._id">
+						<a class="cancelLinkIcon" (click)="onCancelSong()">
+							<span><i class="me-1 fas fa-backspace fa-xs" aria-hidden="true"></i></span>
+						</a>
+					</td>
+				</tr>
+
+		<!--
+		<div class="row g-0">
+			<div class="col-1">
+				<a class="btn btn-outline-success btn-sm" href=""><span><i class="me-1 fas fa-play fa-xs" aria-hidden="true"></i></span></a>
+				<p>{{ song.number }}</p>
+			</div>
+			<div class="col-3">
+				<p>{{ song.name }}</p>
+			</div>
+			<div class="col-9">
+				<p>{{ song.duration }}</p>
+			</div>
+		</div> -->
+		<!--
 		<div class="card">
 		  <div class="row g-0">
 		    <div class="col-md-4">
-		      <img *ngIf="!album.image || album.image == 'null'" src="assets/default.jpg" class="cardImageAlbum card-img-top" alt="...">
-		      <img *ngIf="album.image && album.image != 'null'" src="{{ url + 'get-image-album/' + album.image }}" class="cardImageAlbum card-img-top" alt="...">
+		      <img *ngIf="!song.album.image || song.album.image == 'null'" src="assets/default.jpg" class="cardImageAlbum card-img-top" alt="...">
+		      <img *ngIf="song.album.image && song.album.image != 'null'" src="{{ url + 'get-image-album/' + song.album.image }}" class="cardImageAlbum card-img-top" alt="...">
 		    </div>
 		    <div class="col-md-8">
 			    <div class="card-body">
-			        <h5 class="card-title"><a [routerLink]="['/album', album._id]">{{ album.title }}</a></h5>
-			        <p class="card-text">{{ album.description }}</p>
-			    <a class="btn me-1 btn-outline-warning" [routerLink]="['/editar-album', album._id]">Editar</a>
-				<a class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(album._id)">Borrar</a>
+			        <h5 class="card-title">{{ song.name }}</h5>
+			        <p class="card-text">{{ song.duration }}</p>
+			    <a class="btn me-1 btn-outline-warning" [routerLink]="['/editar-cancion', song._id]">Editar</a>
+				<a class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(song._id)">Borrar</a>
 
-				<div class="seguro mt-1" *ngIf="confirmado == album._id">
-					<a class="btn me-1 btn-danger" (click)="onDeleteAlbum(album._id)">Eliminar</a>
-					<a class="btn me-1 btn-primary" (click)="onCancelAlbum()">Cancelar</a>
+				<div class="seguro mt-1" *ngIf="confirmado == song._id">
+					<a class="btn me-1 btn-danger" (click)="onDeleteSong(song._id)">Eliminar</a>
+					<a class="btn me-1 btn-primary" (click)="onCancelSong()">Cancelar</a>
 			  </div>
 		      </div>
 		    </div>
 		  </div>
-		</div>
-	</div> -->
+		</div> -->
+			</tbody>
+		</table>
+	</div>
 </div>
-		  
