@@ -16,17 +16,18 @@
 			<tbody>
 				<tr *ngFor="let song of songs" class="d-flex">
 					<th scope="row">
-						<a class="btn btn-outline-success btn-sm" href=""><span><i class="me-1 fas fa-play fa-xs" aria-hidden="true"></i></span></a>
+						<a *ngIf="song.file && song.file != 'null'" class="btn btn-outline-success btn-sm" (click)="startPlayer(song)"><span><i class="me-1 fas fa-play fa-xs" aria-hidden="true"></i></span></a>
+						<a *ngIf="!song.file || song.file == 'null'" class="btn btn-outline-success btn-sm disabled" href=""><span><i class="me-1 fas fa-play fa-xs" aria-hidden="true"></i></span></a>
 					</th>
 					<td>{{ song.number }}</td>
 					<td>{{ song.name }}</td>
 					<td>{{ song.duration }}</td>
-					<td>
+					<td *ngIf="identity && identity.role == 'ROLE_ADMIN'">
 						<a class="editLinkIcon" [routerLink]="['/editar-cancion', song._id]">
 							<span><i class="me-1 fas fa-edit fa-xs" aria-hidden="true"></i></span>
 						</a>
 					</td>
-					<td>
+					<td *ngIf="identity && identity.role == 'ROLE_ADMIN'">
 						<a class="deleteLinkIcon" (click)="onDeleteConfirm(song._id)">
 							<span><i class="me-1 fas fa-trash-alt fa-xs" aria-hidden="true"></i></span>
 						</a>

@@ -16,11 +16,14 @@ import { ArtistDetailComponent } from './components/artist-detail.component';
 import { AlbumAddComponent } from './components/album-add.component';
 import { AlbumEditComponent } from './components/album-edit.component';
 import { AlbumDetailComponent } from './components/album-detail.component';
+import { AlbumListComponent } from './components/album-list.component';
 //Song
 import { SongAddComponent } from './components/song-add.component';
 import { SongEditComponent } from './components/song-edit.component';
 //Home
 import { HomeComponent } from './components/home.component';
+//Player
+import { PlayerComponent } from './components/player.component';
 
 // declarations -> Componentes y directivas
 // imports -> Modulos del framework o que hagamos nosotros
@@ -28,9 +31,11 @@ import { HomeComponent } from './components/home.component';
 // bootstrap -> Componente principal
 @NgModule({
   declarations: [
-    AppComponent, UserEditComponent, ArtistListComponent, HomeComponent, ArtistAddComponent, 
-    ArtistEditComponent, ArtistDetailComponent, AlbumAddComponent, AlbumEditComponent, 
-    AlbumDetailComponent, SongAddComponent, SongEditComponent
+    AppComponent, UserEditComponent, HomeComponent,
+    ArtistListComponent, ArtistAddComponent, 
+    ArtistEditComponent, ArtistDetailComponent, 
+    AlbumAddComponent, AlbumEditComponent, AlbumDetailComponent, AlbumListComponent,
+    SongAddComponent, SongEditComponent, PlayerComponent
   ],
   imports: [
     BrowserModule,

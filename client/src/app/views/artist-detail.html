@@ -33,10 +33,10 @@
 		    </div>
 		    <div class="col-md-8">
 			    <div class="card-body">
-			        <h5 class="card-title"><a [routerLink]="['/album', album._id]">{{ album.title }}</a></h5>
-			        <p class="card-text">{{ album.description }}</p>
-			    <a class="btn me-1 btn-outline-warning" [routerLink]="['/editar-album', album._id]">Editar</a>
-				<a class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(album._id)">Borrar</a>
+			        <p class="card-title fs-3"><a [routerLink]="['/album', album._id]">{{ album.title }}</a></p>
+			        <p class="card-text albumCardDescription">{{ album.description }}</p>
+			    <a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn me-1 btn-outline-warning" [routerLink]="['/editar-album', album._id]">Editar</a>
+				<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(album._id)">Borrar</a>
 
 				<div class="seguro mt-1" *ngIf="confirmado == album._id">
 					<a class="btn me-1 btn-danger" (click)="onDeleteAlbum(album._id)">Eliminar</a>

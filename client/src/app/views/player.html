@@ -1,0 +1,17 @@
+<div class="row my-1">
+	<div class="col-1"></div>
+	<div class="col-11 row">
+		<div class="col-1">
+			<img *ngIf="!song.album.image || song.album.image == 'null'" src="assets/default.jpg" class="img-thumbnail img-fluid" alt="..." id="currentSongAlbum">
+			<img *ngIf="song.album.image && song.album.image != 'null'" src="{{ url + 'get-image-album/' + song.album.image}}" class="img-thumbnail img-fluid" id="currentSongAlbum" alt="...">
+		</div>
+		<div class="col-3 align-self-center">
+			<p id="currentSongInfo">{{ song.name }} - {{ song.album.artist.name }}</p>
+		</div>
+		<div class="audio col-8 align-self-center text-end">
+			<audio controls id="player">
+				<source id="mp3Source" src="{{ url + 'get-file-song/' + song.file }}" type="audio/mpeg"/>
+			</audio>
+		</div>
+	</div>
+</div>

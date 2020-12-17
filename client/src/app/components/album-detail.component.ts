@@ -106,4 +106,23 @@ export class AlbumDetailComponent implements OnInit {
 			);
 		}
 	}
+
+	startPlayer(song : Song) {
+		let songPlayer = JSON.stringify(song);
+		let filePath = this.url + 'get-file-song/' + song.file;
+		let imageAlbumPath = this.url + 'get-image-album/' + song.album.image;
+		let imageAlbumDefault = 'assets/default.jpg';
+
+		localStorage.setItem('soundSong', songPlayer);
+		document.getElementById('mp3Source')!.setAttribute('src', filePath);
+		(document.getElementById('player') as any).load();
+		(document.getElementById('player') as any).play();
+
+		document.getElementById('currentSongInfo')!.innerHTML = song.name + ' - ' + song.album.artist.name;
+		if (song.album.image && song.album.image != 'null') {
+			document.getElementById('currentSongAlbum')!.setAttribute('src', imageAlbumPath);
+		} else {
+			document.getElementById('currentSongAlbum')!.setAttribute('src', imageAlbumDefault);
+		}
+	}
 }

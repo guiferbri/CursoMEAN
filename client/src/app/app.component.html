@@ -11,7 +11,7 @@
 			<a class="nav-link" [routerLink]="['/artistas',1]" [routerLinkActive]="['border-bottom','border-success','border-4']">
 				<span ><i class="fas fa-star fa-2x" aria-hidden="true"></i></span><span >Artistas</span>
 			</a>
-			<a class="nav-link" href="#">
+			<a class="nav-link" [routerLink]="['/albums']" [routerLinkActive]="['border-bottom','border-success','border-4']">
 				<span ><i class="fas fa-book fa-2x" aria-hidden="true"></i></span><span >Albums</span>
 			</a>
 		</nav>
@@ -41,6 +41,7 @@
 
 	<div [class.hidden]="!identity" class="central col-11 mt-2">
 		<router-outlet></router-outlet>
+		<player class="fixed-bottom player" *ngIf="identity"></player>
 	</div>
 </div>
 

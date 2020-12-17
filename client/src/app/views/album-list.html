@@ -1,0 +1,51 @@
+<div class="head-page row mb-2" *ngIf="identity">
+	<div class="col-3">
+		<h1>{{ title }}</h1>
+	</div>
+</div>
+<!--
+<div class="artistList row" *ngIf="identity">
+	<div *ngFor="let album of albums" class="col artistItem">
+		<div class="card">
+			<img *ngIf="!album.image || album.image == 'null'" src="assets/default.jpg" class="cardImage card-img-top" alt="...">
+			<img *ngIf="album.image && album.image != 'null'" src="{{ url + 'get-image-album/' + album.image}}" class="cardImage card-img-top" alt="...">
+			<div class="card-body">
+				<h5 class="card-title"><a [routerLink]="['/albuma', album._id]">{{ album.title }}</a></h5>
+				<p class="card-text">{{ album.description }}</p>
+				<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn me-1 btn-outline-warning" [routerLink]="['/editar-album', album._id]">Editar</a>
+				<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(album._id)">Borrar</a>
+
+				<div class="seguro mt-1" *ngIf="confirmado == album._id">
+					<a class="btn me-1 btn-danger" (click)="onDeleteAlbum(album._id)">Eliminar</a>
+					<a class="btn me-1 btn-primary" (click)="onCancelAlbum()">Cancelar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>-->
+<div class="gallery row" *ngIf="albums">
+	<div *ngFor="let album of albums" class="col-4">
+		<div class="card my-2">
+		  <div class="row g-0">
+		    <div class="col-md-4">
+		      <img *ngIf="!album.image || album.image == 'null'" src="assets/default.jpg" class="cardImageAlbum card-img-top" alt="...">
+		      <img *ngIf="album.image && album.image != 'null'" src="{{ url + 'get-image-album/' + album.image }}" class="cardImageAlbum card-img-top" alt="...">
+		    </div>
+		    <div class="col-md-8">
+		    	<div class="card-body">
+		    		<p class="card-title fs-3"><a [routerLink]="['/album', album._id]">{{ album.title }}</a></p>
+		    		<p class="card-title fs-5"><a [routerLink]="['/artista', album.artist._id]">{{ album.artist.name }}</a></p>
+		    		<p class="card-text text-truncate fw-lighter albumCardDescription">{{ album.description }}</p>
+		    		<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn me-1 btn-outline-warning" [routerLink]="['/editar-album', album._id]">Editar</a>
+		    		<a *ngIf="identity && identity.role == 'ROLE_ADMIN'" class="btn me-1 btn-outline-danger" (click)="onDeleteConfirm(album._id)">Borrar</a>
+
+		    		<div class="seguro mt-1" *ngIf="confirmado == album._id">
+		    			<a class="btn me-1 btn-danger" (click)="onDeleteAlbum(album._id)">Eliminar</a>
+		    			<a class="btn me-1 btn-primary" (click)="onCancelAlbum()">Cancelar</a>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
+		</div>
+	</div>
+</div>
