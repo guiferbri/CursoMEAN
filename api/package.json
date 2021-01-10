@@ -4,7 +4,8 @@
   "description": "Proyect de API Rest con NodeJS, Mongodb, Angular del curso de Víctor Robles en Udemy",
   "main": "index.js",
   "scripts": {
-  	"start" : "nodemon index.js",
+    "start" : "node index.js",
+  	"dev" : "nodemon index.js",
     "stop" : "npm help npm-stop",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+//Angular deploy
+express.static('public/dist')
+
 //Cargar rutas
 var userRoutes = require('./routes/user');
 var artistRoutes = require('./routes/artist');
@@ -28,6 +31,12 @@ app.use('/api', userRoutes); //Añade delante de lo definido en userRoutes el 'a
 app.use('/api', artistRoutes); //Añade delante de lo definido en userRoutes el 'api'
 app.use('/api', albumRoutes); //Añade delante de lo definido en userRoutes el 'api'
 app.use('/api', songRoutes); //Añade delante de lo definido en userRoutes el 'api'
+
+//Angular deploy
+const path = require('path');
+app.get('/*', (req, res) => {
+	res.sendFile(path.join(__dirname + '../../public/dist/index.html'));
+});
 
 //PRUEBA
 /*app.get('/pruebas', function(req, res) {
