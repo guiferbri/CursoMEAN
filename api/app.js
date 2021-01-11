@@ -6,7 +6,7 @@ var app = express();
 
 //Angular deploy
 //app.use(express.static('public/dist'));
-app.use(express.static(__dirname + '/../../public/dist/'));
+app.use(express.static(__dirname + '/public/dist/'));
 
 //Cargar rutas
 var userRoutes = require('./routes/user');
@@ -35,8 +35,9 @@ app.use('/api', songRoutes); //Añade delante de lo definido en userRoutes el 'a
 
 //Angular deploy
 const path = require('path');
+console.log(path.join(__dirname+'/../public/dist/index.html'));
 app.get('/*', (req, res) => {
-	res.sendFile('/../../public/dist/index.html');
+	res.sendFile(path.join(__dirname+'/../public/dist/index.html'));
 });
 
 //PRUEBA
