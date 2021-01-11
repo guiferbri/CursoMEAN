@@ -7,10 +7,6 @@ var app = express();
 //Angular deploy
 //app.use(express.static('public/dist'));
 app.use(express.static(__dirname + '/public/dist/'));
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
 
 //Cargar rutas
 var userRoutes = require('./routes/user');
