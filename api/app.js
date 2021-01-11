@@ -35,9 +35,10 @@ app.use('/api', songRoutes); //Añade delante de lo definido en userRoutes el 'a
 
 //Angular deploy
 const path = require('path');
-console.log(path.join(__dirname+'/../public/dist/index.html'));
+var appDir = path.dirname(require.main.filename);
+console.log(path.join(__dirname+'/public/dist/index.html'));
 app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname+'/../public/dist/index.html'));
+	res.sendFile(path.join(__dirname+'/public/dist/index.html'));
 });
 
 //PRUEBA
