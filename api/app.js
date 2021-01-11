@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var app = express();
 
 //Angular deploy
-app.use(express.static('public/dist'));
+//app.use(express.static('public/dist'));
+app.use(express.static(__dirname + '/public/dist'));
 
 //Cargar rutas
 var userRoutes = require('./routes/user');
