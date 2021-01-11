@@ -10,7 +10,7 @@ Package-lock.json
 *.DS_Store
 
 ### Angular ###
-dist/
+client/dist/
 tmp/
 app/**/*.js
 app/**/*.js.map
